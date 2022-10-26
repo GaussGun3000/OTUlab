@@ -4,6 +4,7 @@ U=100 В;
 i[L](t) - ?
 """
 import task1
+import w
 
 if __name__ == "__main__":
-    task1.basic_plot()
+    task1.bode()

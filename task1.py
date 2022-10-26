@@ -1,15 +1,33 @@
 import matplotlib.pyplot as plotter
+from scipy import signal
+import numpy as np
+from w import transfer_func as tf
 
 
-def basic_plot():
-    plotter.plot([1, 2, 3, 4], [1.5, 1.9, 3.6, 4.9])
+"""def wplot():
+    t = np.arange(-1.0001e07, -0.9999e07, 10)
+    plotter.plot(t, tf(t))
+    plotter.show()
+"""
+
+
+def bode():
+    stf = tf()  # init Transfer Function object
+    w, mag, phase = signal.bode(stf)
+    plotter.figure()
+    plotter.semilogx(w, mag)
+    plotter.figure()
+    plotter.semilogx(w, phase)
     plotter.show()
 
+
+def wf():
+    pass
 
 """
 1. Составить математическую модель в дифференциальных уравнениях для RLC-цепи, в соответствии с вариантом задания.
 2. Перейти от математической модели в дифференциальных уравнениях к передаточной функции.
-3. Построить компьютерные модели в среде MATLAB/Simulink. (на основе ДУ и ПФ). Использовать в качестве входного источника сигнала:
+3. Построить компьютерные модели. (на основе ДУ и ПФ). Использовать в качестве входного источника сигнала:
     3.1 Ступенчатый импульс (Step) со значением final value = Un (In), где n – номер варианта.
     3.2 Прямоугольный импульс (Pulse Generator) с амплитудным значением final value = Un (In), где n – номер варианта. (не менее 3 прямоугольных импульсов за все время симуляции.)
 4. Получить переходные характеристики для каждой из построенных моделей при различных входных сигналах. Выполнить сравнительный анализ.
