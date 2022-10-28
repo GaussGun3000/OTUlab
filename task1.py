@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 from scipy import signal
 import numpy as np
+
+import ss_simulation
 from w import transfer_func as tf
 
 
@@ -29,26 +31,29 @@ def bode():
     plt.show()
 
 
-def step_signal():
+def step_signal(plot):
     t, y = signal.step(tf())
-    plt.plot(t, y)
-    plt.grid()
-    plt.show()
+    plot.plot(t, 100 * y)
+    plot.grid()
 
 
-def square_signal():
-    t = np.linspace(0, 0.0000015, 100000)
-    ss = 50 * signal.square(15000000 * t, 0.5)
+def square_signal(plot):
+    t = np.linspace(0, 0.000004, 1000)
+    ss = 50 * signal.square(6000000 * t, 0.5)
     ss += abs(ss)
-    # plt.plot(t, 100 * ss)
     tout, y, x = signal.lsim(tf(), ss, t)
-    plt.plot(t, y)
-    plt.grid(alpha=0.5)
+    plot.plot(t, y)
+    plot.grid(alpha=0.5)
+
+
+def run():
+    plot = ss_simulation.de_signal_simulation(repeats=1, color='r')  # step signal
+    plot.set_xlim(0.0, 7e-7)
+    step_signal(plot.twinx())
+
+    plot1 = ss_simulation.de_signal_simulation(T=0.000001045, repeats=4, color='r', subplot=312)  # square signal
+    square_signal(plot1.twinx())
     plt.show()
-
-
-def wf():
-    pass
 
 """
 1. Составить математическую модель в дифференциальных уравнениях для RLC-цепи, в соответствии с вариантом задания.
