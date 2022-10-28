@@ -1,7 +1,8 @@
-import matplotlib.pyplot as plotter
+import matplotlib.pyplot as plt
 from scipy import signal
 import numpy as np
 from w import transfer_func as tf
+
 
 
 """def wplot():
@@ -14,11 +15,36 @@ from w import transfer_func as tf
 def bode():
     stf = tf()  # init Transfer Function object
     w, mag, phase = signal.bode(stf)
-    plotter.figure()
-    plotter.semilogx(w, mag)
-    plotter.figure()
-    plotter.semilogx(w, phase)
-    plotter.show()
+    plt.figure()
+    plt.title("АЧХ")
+    plt.xlabel("w")
+    plt.ylabel("А")
+    plt.semilogx(w, mag)
+
+    plt.figure()
+    plt.title("ФЧХ")
+    plt.xlabel("w")
+    plt.ylabel("Ф")
+    plt.semilogx(w, phase)
+    plt.show()
+
+
+def step_signal():
+    t, y = signal.step(tf())
+    plt.plot(t, y)
+    plt.grid()
+    plt.show()
+
+
+def square_signal():
+    t = np.linspace(0, 0.0000015, 100000)
+    ss = 50 * signal.square(15000000 * t, 0.5)
+    ss += abs(ss)
+    # plt.plot(t, 100 * ss)
+    tout, y, x = signal.lsim(tf(), ss, t)
+    plt.plot(t, y)
+    plt.grid(alpha=0.5)
+    plt.show()
 
 
 def wf():
