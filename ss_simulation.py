@@ -54,6 +54,7 @@ def de_signal_simulation(T=0.0000015, repeats=5, color='b', subplot=311):
     plot.plot(time, il, color)
     # plt.xlim(0.0, 7e-7)
     plt.grid(True)
+    plot.legend(['DE model'], loc = 5)
     return plot
 
 

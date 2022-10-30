@@ -1,10 +1,8 @@
 import matplotlib.pyplot as plt
 from scipy import signal
 import numpy as np
-
 import ss_simulation
 from w import transfer_func as tf
-
 
 
 """def wplot():
@@ -35,6 +33,7 @@ def step_signal(plot):
     t, y = signal.step(tf())
     plot.plot(t, 100 * y)
     plot.grid()
+    plot.legend(['TF model'], loc = 4)
 
 
 def square_signal(plot):
@@ -44,6 +43,7 @@ def square_signal(plot):
     tout, y, x = signal.lsim(tf(), ss, t)
     plot.plot(t, y)
     plot.grid(alpha=0.5)
+    plot.legend(['TF model'], loc=4)
 
 
 def run():
@@ -53,7 +53,9 @@ def run():
 
     plot1 = ss_simulation.de_signal_simulation(T=0.000001045, repeats=4, color='r', subplot=312)  # square signal
     square_signal(plot1.twinx())
+
     plt.show()
+
 
 """
 1. Составить математическую модель в дифференциальных уравнениях для RLC-цепи, в соответствии с вариантом задания.
