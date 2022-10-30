@@ -33,7 +33,7 @@ def step_signal(plot):
     t, y = signal.step(tf())
     plot.plot(t, 100 * y)
     plot.grid()
-    plot.legend(['TF model'], loc = 4)
+    plot.legend(['модель ПФ'], loc = 4)
 
 
 def square_signal(plot):
@@ -43,7 +43,7 @@ def square_signal(plot):
     tout, y, x = signal.lsim(tf(), ss, t)
     plot.plot(t, y)
     plot.grid(alpha=0.5)
-    plot.legend(['TF model'], loc=4)
+    plot.legend(['модель ПФ'], loc=4)
 
 
 def run():
