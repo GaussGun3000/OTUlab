@@ -5,14 +5,11 @@ import ss_simulation
 from w import transfer_func as tf, L, R
 import control
 
-"""def wplot():
-    t = np.arange(-1.0001e07, -0.9999e07, 10)
-    plotter.plot(t, tf(t))
-    plotter.show()
-"""
-
 
 def bode():
+    """
+    Draw bode, step response, Pole-zero map and nyquist diagram.
+    """
     stf = tf()  # init Transfer Function object
     w, mag, phase = signal.bode(stf)
     plt.figure()
@@ -47,8 +44,8 @@ def bode():
 
     plt.figure()
     control.nyquist_plot([ctf, ], plot=True)
+    plt.title("АФХ")
     plt.show()
-
 
 def step_signal(plot):
     """Draw step response"""
@@ -59,6 +56,7 @@ def step_signal(plot):
 
 
 def square_signal(plot):
+    """Draw square signal response"""
     t = np.linspace(0, 0.000004, 1000)
     ss = 50 * signal.square(6000000 * t, 0.5)
     ss += abs(ss)
@@ -69,6 +67,9 @@ def square_signal(plot):
 
 
 def run():
+    """
+    Run step and square signal simulations in both TF and DE models and plot the results
+    """
     plot = ss_simulation.de_signal_simulation(repeats=1, color='r')  # step signal
     plot.set_xlim(0.0, 7e-7)
     step_signal(plot.twinx())
