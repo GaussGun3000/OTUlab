@@ -4,8 +4,8 @@ U=100 В;
 i[L](t) - ?
 """
 import task1
-import w
-
+import task2
 
 if __name__ == "__main__":
-    task1.bode()
+    # task1.freq_properties()
+    task2.freq_properties()

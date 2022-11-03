@@ -6,7 +6,7 @@ from w import transfer_func as tf, L, R
 import control
 
 
-def bode():
+def freq_properties():
     """
     Draw bode, step response, Pole-zero map and nyquist diagram.
     """
