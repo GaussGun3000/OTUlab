@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy import signal
-from w2 import transfer_func as tf, K, T, damp
+from w2 import transfer_func as tf, control_tf as ctf
 import control
 
 
@@ -35,12 +36,31 @@ def freq_properties():
     plt.show()
     input("Press enter to continue . . .")
 
-    ctf = control.TransferFunction([K], [T * T, 2 * T * damp, 1])
     plt.figure()
-    control.nyquist_plot([ctf, ], plot=True)
+    control.nyquist_plot([ctf(), ], plot=True)
     plt.title("АФХ")
     plt.show()
     input("Press enter to continue . . .")
+
+
+def zeros_graph():
+    plot = plt.figure()
+    damp_list = np.linspace(0, 1, 30)
+    control.pzmap(ctf(0), plot=True, title='Карта нулей и полюсов')
+    damp_list = damp_list[1:]
+    for damp in damp_list:
+        zeroes, poles = control.pzmap(ctf(damp), plot=False, title='Карта нулей и полюсов')
+        x = [elem.real for elem in zeroes]
+        y = [elem.imag for elem in zeroes]
+        print(poles, zeroes)
+        plt.scatter(x, y, marker='x')
+    plt.show()
+    input("Press enter to continue . . .")
+
+
+def freq_damp_graph():
+    pass
+
 
 
 """
