@@ -17,6 +17,15 @@ L = 0.0000015
 
 
 def de_signal_simulation(T=0.0000015, repeats=5, color='b', subplot=311):
+    """
+    Simulation of response to a square signal based on differential equation model.
+
+    :param T: Period
+    :param repeats: Amount of repeated square signals (1 for step signal)
+    :param color: color of graph
+    :param subplot: subplot index
+    :return: plt.Subplot
+    """
     # Time components
     t0 = 0.0
     step = T / 10000
@@ -52,9 +61,8 @@ def de_signal_simulation(T=0.0000015, repeats=5, color='b', subplot=311):
 
     plot = plt.subplot(subplot)
     plot.plot(time, il, color)
-    # plt.xlim(0.0, 7e-7)
     plt.grid(True)
-    plot.legend(['модель ДУ'], loc = 5)
+    plot.legend(['модель ДУ'], loc=5)
     return plot
 
 

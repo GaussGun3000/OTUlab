@@ -8,4 +8,4 @@ import w
 
 
 if __name__ == "__main__":
-    task1.run()
+    task1.bode()

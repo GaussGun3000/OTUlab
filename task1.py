@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 from scipy import signal
 import numpy as np
 import ss_simulation
-from w import transfer_func as tf
-
+from w import transfer_func as tf, L, R
+import control
 
 """def wplot():
     t = np.arange(-1.0001e07, -0.9999e07, 10)
@@ -20,6 +20,8 @@ def bode():
     plt.xlabel("w")
     plt.ylabel("А")
     plt.semilogx(w, mag)
+    plt.show()
+    input("Press enter to continue . . .")
 
     plt.figure()
     plt.title("ФЧХ")
@@ -27,13 +29,33 @@ def bode():
     plt.ylabel("Ф")
     plt.semilogx(w, phase)
     plt.show()
+    input("Press enter to continue . . .")
+
+    plt.figure()
+    plt.title("ПХ")
+    t, y = signal.step(tf())
+    plt.plot(t, y)
+    plt.grid()
+    plt.show()
+    input("Press enter to continue . . .")
+
+    plot = plt.figure()
+    ctf = control.TransferFunction([1], [L, R])
+    control.pzmap(ctf, plot=plot, title='Карта нулей и полюсов')
+    plt.show()
+    input("Press enter to continue . . .")
+
+    plt.figure()
+    control.nyquist_plot([ctf, ], plot=True)
+    plt.show()
 
 
 def step_signal(plot):
+    """Draw step response"""
     t, y = signal.step(tf())
     plot.plot(t, 100 * y)
     plot.grid()
-    plot.legend(['модель ПФ'], loc = 4)
+    plot.legend(['модель ПФ'], loc=4)
 
 
 def square_signal(plot):
