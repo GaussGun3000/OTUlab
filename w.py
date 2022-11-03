@@ -1,7 +1,7 @@
+"""Transfer function for task1 and its parameters"""
 from scipy import signal
 L = 0.0000015  # inductance
 R = 15   # resistance
-"""Transfer function"""
 
 
 def transfer_func() -> signal.TransferFunction:
