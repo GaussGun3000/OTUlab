@@ -1,5 +1,5 @@
 """
-Simulation of circtuit response to repeated square signal (based on Differential equation)
+Simulation of circuit response to repeated square signal (based on Differential equation)
 Credit: https://habr.com/ru/post/323590/
 """
 
