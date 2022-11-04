@@ -52,7 +52,6 @@ def zeros_graph():
         zeroes, poles = control.pzmap(ctf(damp), plot=False, title='Карта нулей и полюсов')
         x = [elem.real for elem in zeroes]
         y = [elem.imag for elem in zeroes]
-        print(poles, zeroes)
         plt.scatter(x, y, marker='x')
     plt.show()
     input("Press enter to continue . . .")
@@ -73,6 +72,21 @@ def freq_damp_graph():
     input("Press enter to continue . . .")
 
 
+def res_freq_graph():
+    damp = 0.6
+    t_list = np.linspace(0, 3, 1000)
+    max_f = np.array(.0)
+    for t in t_list:
+        w, mag, phase = signal.bode(tf(damp, t))
+        index = np.where(mag == mag.max())[0][0]
+        max_f = np.append(max_f, w[index])
+    print(max_f)
+    plt.plot(t_list, max_f[1:])
+    plt.title('Зависимость резонансной частоты от T')
+    plt.grid()
+    plt.show()
+    input("Press enter to continue . . .")
+
 
 """
 k=12;   T=2;   ξ=0.6
@@ -83,7 +97,7 @@ k=12;   T=2;   ξ=0.6
     Провести исследование характеристик звена, состоящее в следующем:
 1. Проанализировать движение корней (траекторий корней) ХП на комплексной плоскости при изменении
 параметра ξ, привести графики.
-2. Построить график зависимости резонансного пика АЧХ от коэффициента демпфирования в пределах 0 <= ξ <=1.
+2. Построить график зависимости резонансного пика АЧХ от коэффициента демпфирования в пределах 0 <= ξ <= 1.
 3. Построить график зависимости резонансной частоты ωp от постоянной времени Т при выбранном значении ξ.
 4. Определить экспериментально оптимальное значение коэффициента демпфирования ξ=ξопт из условия минимума
 времени tp затухания процесса (принять за tp время, начиная с которого переходная характеристика остается
