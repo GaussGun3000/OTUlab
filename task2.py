@@ -14,7 +14,6 @@ def freq_properties():
     plt.grid()
     plt.title("АЧХ")
     plt.xlabel("w")
-    plt.ylabel("А")
     plt.semilogx(w, mag)
     plt.show()
     input("Press enter to continue . . .")
@@ -22,8 +21,6 @@ def freq_properties():
     plt.figure()
     plt.grid()
     plt.title("ФЧХ")
-    plt.xlabel("w")
-    plt.ylabel("Ф")
     plt.semilogx(w, phase)
     plt.show()
     input("Press enter to continue . . .")
@@ -66,8 +63,6 @@ def freq_damp_graph():
         w, mag, phase = signal.bode(tf(damp))
         max_mag.append(max(mag))
     plt.plot(damp_list, max_mag)
-    plt.xlabel('ξ')
-    plt.ylabel('R')
     plt.title('Зависимость резонансного пика АЧХ от ξ')
     plt.grid()
     plt.show()
@@ -82,12 +77,12 @@ def res_freq_graph():
         w, mag, phase = signal.bode(tf(damp, t))
         index = np.where(mag == mag.max())[0][0]
         max_f = np.append(max_f, w[index])
-    print(max_f)
     plt.plot(t_list, max_f[1:])
     plt.title('Зависимость резонансной частоты от T')
     plt.grid()
     plt.show()
     input("Press enter to continue . . .")
+
 
 
 """

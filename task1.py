@@ -14,8 +14,6 @@ def freq_properties():
     w, mag, phase = signal.bode(stf)
     plt.figure()
     plt.title("АЧХ")
-    plt.xlabel("w")
-    plt.ylabel("А")
     plt.grid()
     plt.semilogx(w, mag)
     plt.show()
@@ -23,8 +21,6 @@ def freq_properties():
 
     plt.figure()
     plt.title("ФЧХ")
-    plt.xlabel("w")
-    plt.ylabel("Ф")
     plt.grid()
     plt.semilogx(w, phase)
     plt.show()
