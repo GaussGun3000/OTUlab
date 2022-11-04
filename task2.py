@@ -39,6 +39,8 @@ def freq_properties():
     plt.figure()
     control.nyquist_plot([ctf(), ], plot=True)
     plt.title("АФХ")
+    plt.grid(False)
+    plt.xlim(left=0)
     plt.show()
     input("Press enter to continue . . .")
 

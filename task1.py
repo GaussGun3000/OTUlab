@@ -16,6 +16,7 @@ def freq_properties():
     plt.title("АЧХ")
     plt.xlabel("w")
     plt.ylabel("А")
+    plt.grid()
     plt.semilogx(w, mag)
     plt.show()
     input("Press enter to continue . . .")
@@ -24,6 +25,7 @@ def freq_properties():
     plt.title("ФЧХ")
     plt.xlabel("w")
     plt.ylabel("Ф")
+    plt.grid()
     plt.semilogx(w, phase)
     plt.show()
     input("Press enter to continue . . .")
@@ -39,12 +41,15 @@ def freq_properties():
     plot = plt.figure()
     ctf = control.TransferFunction([1], [L, R])
     control.pzmap(ctf, plot=plot, title='Карта нулей и полюсов')
+    plt.grid(False)
     plt.show()
     input("Press enter to continue . . .")
 
     plt.figure()
     control.nyquist_plot([ctf, ], plot=True)
+    plt.grid(False)
     plt.title("АФХ")
+    plt.xlim(left=0)
     plt.show()
 
 def step_signal(plot):
