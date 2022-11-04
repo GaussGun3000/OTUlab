@@ -5,11 +5,19 @@ from w2 import transfer_func as tf, control_tf as ctf
 import control
 
 
-def freq_properties():
+def pz_map(damp=0.6):
+    """Draw and display pole-zero map of TF with set damp coefficient"""
+    plt.figure()
+    control.pzmap(ctf(damp), plot=True, title='Карта нулей и полюсов')
+    plt.show()
+    input("Press enter to continue . . .")
+
+
+def freq_properties(damp=0.6):
     """
     Draw bode, step response, Pole-zero map and nyquist diagram.
     """
-    w, mag, phase = signal.bode(tf())
+    w, mag, phase = signal.bode(tf(damp))
     plt.figure()
     plt.grid()
     plt.title("АЧХ")
@@ -27,14 +35,14 @@ def freq_properties():
 
     plt.figure()
     plt.title("ПХ")
-    t, y = signal.step(tf())
+    t, y = signal.step(tf(damp))
     plt.plot(t, y)
     plt.grid()
     plt.show()
     input("Press enter to continue . . .")
 
     plt.figure()
-    control.nyquist_plot([ctf(), ], plot=True)
+    control.nyquist_plot([ctf(damp), ], plot=True)
     plt.title("АФХ")
     plt.grid(False)
     plt.xlim(left=0)
@@ -43,6 +51,7 @@ def freq_properties():
 
 
 def zeros_graph():
+    """Pole-Zero maps for different damp coefficients"""
     plot = plt.figure()
     damp_list = np.linspace(0, 1, 30)
     control.pzmap(ctf(0), plot=True, title='Карта нулей и полюсов')
@@ -57,6 +66,7 @@ def zeros_graph():
 
 
 def freq_damp_graph():
+    """Resonant amplitude peaks for different damp coefficients"""
     damp_list = np.linspace(0, 1, 1000)
     max_mag = list()
     for damp in damp_list:
@@ -70,6 +80,7 @@ def freq_damp_graph():
 
 
 def res_freq_graph():
+    """Resonant frequencies for different T coefficients"""
     damp = 0.6
     t_list = np.linspace(0, 3, 1000)
     max_f = np.array(.0)
@@ -84,6 +95,26 @@ def res_freq_graph():
     input("Press enter to continue . . .")
 
 
+def optimal_damp():
+    """Optimal damp coefficient calculation based on 5% criteria"""
+    damp_list = np.linspace(0, 1, 1000)
+    custom_t = np.linspace(0, 50, 400)
+    min_t = np.inf
+    opt_d = 0
+    for damp in damp_list:
+        t, y = signal.step(tf(damp), T=custom_t)
+        range5 = np.where(y <= 0.95 * y.max())[0]
+        range5 = np.append(range5, np.where(y >= 1.05 * y.max())[0])
+        time = t[range5.max()]
+        if time < min_t:
+            min_t = time
+            opt_d = damp
+    return opt_d
+
+
+def magnitude_peak(damp):
+    w, mag, phase = signal.bode(tf(damp))
+    print(f"Optimal damp magnitude peak = {max(mag)}\n")
 
 """
 k=12;   T=2;   ξ=0.6
@@ -92,15 +123,15 @@ k=12;   T=2;   ξ=0.6
 определить переходную и частотные характеристики (АФХ и ЛЧХ) при выбранных значениях (см. варианты задания)
 параметров T, ξ, привести графики.
     Провести исследование характеристик звена, состоящее в следующем:
-1. Проанализировать движение корней (траекторий корней) ХП на комплексной плоскости при изменении
++1. Проанализировать движение корней (траекторий корней) ХП на комплексной плоскости при изменении
 параметра ξ, привести графики.
-2. Построить график зависимости резонансного пика АЧХ от коэффициента демпфирования в пределах 0 <= ξ <= 1.
-3. Построить график зависимости резонансной частоты ωp от постоянной времени Т при выбранном значении ξ.
-4. Определить экспериментально оптимальное значение коэффициента демпфирования ξ=ξопт из условия минимума
++2. Построить график зависимости резонансного пика АЧХ от коэффициента демпфирования в пределах 0 <= ξ <= 1.
++3. Построить график зависимости резонансной частоты ωp от постоянной времени Т при выбранном значении ξ.
++4. Определить экспериментально оптимальное значение коэффициента демпфирования ξ=ξопт из условия минимума
 времени tp затухания процесса (принять за tp время, начиная с которого переходная характеристика остается
 в пределах ± 5% от установившегося значения). Как располагаются на комплексной плоскости корни ХП при
 ξ=ξопт ? Чему равна высота пика ЛАЧХ?
-5. Определить переходную и частотные характеристики (АФХ и ЛЧХ) при изменении знака коэффициента демпфирования 
++5. Определить переходную и частотные характеристики (АФХ и ЛЧХ) при изменении знака коэффициента демпфирования 
 ξ на -ξ, привести графики.
 
 """
