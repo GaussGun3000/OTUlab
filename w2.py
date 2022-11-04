@@ -8,7 +8,7 @@ T = 2
 
 
 def transfer_func(d=0.6, t=T):
-    return signal.TransferFunction([K], [t * t, 2 * t * d, 1])  # k / ( T^2 * w^2 + [2Tξ]w + 1)
+    return signal.TransferFunction([K], [t * t, 2 * t * d, 1])  # k / ( T^2 * s^2 + [2Tξ]s + 1)
 
 
 def control_tf(d=0.6):

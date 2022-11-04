@@ -24,7 +24,7 @@ def de_signal_simulation(T=0.0000015, repeats=5, color='b', subplot=311):
     :param repeats: Amount of repeated square signals (1 for step signal)
     :param color: color of graph
     :param subplot: subplot index
-    :return: plt.Subplot
+    :return: plt.subplot
     """
     # Time components
     t0 = 0.0

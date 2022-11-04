@@ -50,7 +50,6 @@ def freq_properties(damp=DAMP):
     plt.figure()
     plt.grid()
     plt.title("АЧХ")
-    plt.xlabel("w")
     plt.semilogx(w, mag)
     plt.show()
     input("Press enter to continue . . .")
@@ -64,7 +63,7 @@ def freq_properties(damp=DAMP):
 
     plt.figure()
     plt.title("ПХ")
-    t, y = signal.step(tf(damp))
+    t, y = signal.step(tf(damp), T=np.linspace(0, 100, 2000))
     plt.plot(t, y)
     plt.grid()
     plt.show()
@@ -129,14 +128,16 @@ def optimal_damp():
     custom_t = np.linspace(0, 50, 400)
     min_t = np.inf
     opt_d = 0
+    EST = 12  # established step response value
     for damp in damp_list:
         t, y = signal.step(tf(damp), T=custom_t)
-        range5 = np.where(y <= 0.95 * y.max())[0]
-        range5 = np.append(range5, np.where(y >= 1.05 * y.max())[0])
+        range5 = np.where(y <= 0.95 * EST)[0]
+        range5 = np.append(range5, np.where(y >= 1.05 * EST)[0])
         time = t[range5.max()]
         if time < min_t:
             min_t = time
             opt_d = damp
+    print(f"Optimal damp coefficient = {opt_d}")
     return opt_d
 
 
