@@ -71,6 +71,7 @@ def run():
     """
     Run step and square signal simulations in both TF and DE models and plot the results
     """
+
     plot = ss_simulation.de_signal_simulation(repeats=1, color='r')  # step signal
     plot.set_xlim(0.0, 7e-7)
     step_signal(plot.twinx())
@@ -79,7 +80,12 @@ def run():
     square_signal(plot1.twinx())
 
     plt.show()
+    input("Press enter to continue . . .")
 
+
+def run_all():
+    run()
+    freq_properties()
 
 """
 1. Составить математическую модель в дифференциальных уравнениях для RLC-цепи, в соответствии с вариантом задания.
