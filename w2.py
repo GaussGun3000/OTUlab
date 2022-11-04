@@ -1,4 +1,4 @@
-"""Transfer function for task2 and its parameters"""
+"""Transfer functions for task2 and its default parameters"""
 import numpy as np
 from scipy import signal
 import control
