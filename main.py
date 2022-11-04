@@ -8,4 +8,4 @@ import task2
 
 if __name__ == "__main__":
     # task1.freq_properties()
-    task2.freq_properties()
+    task2.freq_damp_graph()

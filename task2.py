@@ -59,7 +59,18 @@ def zeros_graph():
 
 
 def freq_damp_graph():
-    pass
+    damp_list = np.linspace(0, 1, 1000)
+    max_mag = list()
+    for damp in damp_list:
+        w, mag, phase = signal.bode(tf(damp))
+        max_mag.append(max(mag))
+    plt.plot(damp_list, max_mag)
+    plt.xlabel('ξ')
+    plt.ylabel('R')
+    plt.title('Зависимость резонансного пика АЧХ от ξ')
+    plt.grid()
+    plt.show()
+    input("Press enter to continue . . .")
 
 
 
