@@ -134,10 +134,12 @@ def optimal_damp():
         range5 = np.where(y <= 0.95 * EST)[0]
         range5 = np.append(range5, np.where(y >= 1.05 * EST)[0])
         time = t[range5.max()]
+        plt.plot(t, y)
         if time < min_t:
             min_t = time
             opt_d = damp
     print(f"Optimal damp coefficient = {opt_d}")
+    plt.show()
     return opt_d
 
 
