@@ -80,7 +80,7 @@ def square_signal(plot):
     ss += abs(ss)
     tout, y, x = signal.lsim(tf(), ss, t)
     plot.plot(t, y)
-    plot.grid(alpha=0.5)
+    plot.grid()
     plot.legend(['модель ПФ'], loc=4)
 
 

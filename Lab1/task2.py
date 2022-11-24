@@ -73,7 +73,6 @@ def freq_properties(damp=DAMP):
     control.nyquist_plot([ctf(damp), ], plot=True)
     plt.title("АФХ")
     plt.grid(False)
-    plt.xlim(left=0)
     plt.show()
     input("Press enter to continue . . .")
 
