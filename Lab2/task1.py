@@ -14,7 +14,7 @@ h = 9;     q = 4;
 """
 from simple_pid import PID
 import matplotlib.pyplot as plt
-
+import numpy as np
 
 WATER_TARGET_LEVEL = 9
 WATER_OUTLET_RATE = 4
@@ -24,9 +24,9 @@ class WaterTank:
     def __init__(self):
         self.water_level = WATER_TARGET_LEVEL
 
-    def update(self, inlet: int, dt: float):
+    def update(self, inlet: float, dt: float):
         """
-        Update state of the object based on water inlet amount as control input
+        Update state of the object basded on water inlet amount as control input
 
         :param inlet: water inlet amount (m^3/s)
         :param dt: time span in seconds
@@ -41,6 +41,21 @@ class WaterTank:
 
 def run():
     tank = WaterTank()
-    pi_controller = PID(1, 1, 0, setpoint=tank.water_level)
+    pi_controller = PID(1, 1, 0, setpoint=WATER_TARGET_LEVEL)
     pi_controller.output_limits = (0, 20)
 
+    # Keep track of values for plotting
+    setpoint, y, x = [], [], []
+
+    t = np.linspace(0, 50, 201)
+
+    for ct in t:
+        inlet = pi_controller(tank.water_level)
+        tank.update(inlet, dt=0.25)
+
+        y += [tank.water_level]
+
+    plt.plot(t, y)
+    plt.xlabel('time')
+    plt.ylabel('level')
+    plt.show()
