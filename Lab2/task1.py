@@ -12,8 +12,12 @@ h = 9;     q = 4;
  параметрах определить запасы устойчивости по амплитуде и фазе, степень устойчивости и колебательности.
  Сделать выводы.
 """
+from simple_pid import PID
+import matplotlib.pyplot as plt
+
 
 WATER_TARGET_LEVEL = 9
+WATER_OUTLET_RATE = 4
 
 
 class WaterTank:
@@ -26,13 +30,17 @@ class WaterTank:
 
         :param inlet: water inlet amount (m^3/s)
         :param dt: time span in seconds
-        :return:
+        :return: None
         """
         if inlet >= 0:
-            pass
+            self.water_level += inlet * dt
         else:
             raise ValueError(f"WaterTank.update(): Value of inlet param can not be negative (got {inlet})")
+        self.water_level -= WATER_OUTLET_RATE * dt
 
 
 def run():
-    pass
+    tank = WaterTank()
+    pi_controller = PID(1, 1, 0, setpoint=tank.water_level)
+    pi_controller.output_limits = (0, 20)
+
