@@ -41,7 +41,12 @@ class WaterTank:
         self.water_level -= WATER_OUTLET_RATE * dt if self.water_level - WATER_OUTLET_RATE * dt >= 0 else 0
 
 
-def run():
+def run(plot:bool = False):
+    """
+    Run PID control simulation
+    :param plot: whether to plot results or return values
+    :return: two arrays of values
+    """
     tank_pi = WaterTank()
     tank_pid = WaterTank()
 
@@ -50,7 +55,7 @@ def run():
     pi_controller.output_limits = (0, 20)
     pid_controller.output_limits = (0, 20)
 
-    y_pi, y_pid = [], []
+    y_pi, y_pid = np.empty(0), np.empty(0)
     values = 1000
     tf = 20
     t = np.linspace(0, tf, values + 1)
@@ -62,8 +67,8 @@ def run():
 
         inlet = pid_controller(tank_pid.water_level, dt=dt)
         tank_pid.update(inlet, dt=dt)
-        y_pi += [tank_pi.water_level]
-        y_pid += [tank_pid.water_level]
+        y_pi = np.append(y_pi, tank_pi.water_level)
+        y_pid = np.append(y_pid, tank_pid.water_level)
 
     plt.plot(t, y_pi, color='red', linestyle="--")
     plt.axhline(y=9)
@@ -77,3 +82,6 @@ def run():
     plt.xlabel('time')
     plt.ylabel('level')
     plt.show()
+
+
+
